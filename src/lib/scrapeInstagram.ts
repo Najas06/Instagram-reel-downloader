@@ -1,9 +1,24 @@
 import puppeteer from "puppeteer";
-import { devices, executablePath } from "puppeteer";
+import { executablePath } from "puppeteer";
+
+// Manually define the iPhone 13 Pro Max descriptor
+const iPhone13ProMax = {
+  name: 'iPhone 13 Pro Max',
+  userAgent:
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Mobile/15E148 Safari/604.1',
+  viewport: {
+    width: 428,
+    height: 926,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    isLandscape: false,
+  },
+};
 
 export async function scrapeInstagramVideo(url: string): Promise<string | null> {
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: "shell",
     executablePath: executablePath(),
     args: [
       "--no-sandbox",
@@ -15,7 +30,7 @@ export async function scrapeInstagramVideo(url: string): Promise<string | null> 
 
   try {
     const page = await browser.newPage();
-    await page.emulate(devices["iPhone 13 Pro Max"]);
+    await page.emulate(iPhone13ProMax); // ✅ Use manual device descriptor
 
     let videoUrl: string | null = null;
 

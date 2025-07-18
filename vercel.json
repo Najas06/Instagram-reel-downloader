@@ -1,0 +1,9 @@
+{
+  "functions": {
+    "api/download/route.ts": {
+      "runtime": "nodejs20",
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  }
+}
